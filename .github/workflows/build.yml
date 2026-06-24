@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     strategy:
@@ -85,23 +88,23 @@ jobs:
         if: matrix.platform == 'windows'
         run: |
           cd build/bin
-          $filename = "desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.zip"
-          Compress-Archive -Path desktop-imagecompressor.exe -DestinationPath $filename
+          $filename = "picslim-${{ matrix.platform }}-${{ matrix.arch }}.zip"
+          Compress-Archive -Path picslim.exe -DestinationPath $filename
           echo "ARTIFACT_NAME=$filename" >> $env:GITHUB_ENV
 
       - name: Package artifacts (Linux)
         if: matrix.platform == 'linux'
         run: |
           cd build/bin
-          tar -czvf desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz desktop-imagecompressor
-          echo "ARTIFACT_NAME=desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
+          tar -czvf picslim-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz picslim
+          echo "ARTIFACT_NAME=picslim-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
 
       - name: Package artifacts (macOS)
         if: matrix.platform == 'darwin'
         run: |
           cd build/bin
-          zip -r desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.zip desktop-imagecompressor.app
-          echo "ARTIFACT_NAME=desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.zip" >> $GITHUB_ENV
+          zip -r picslim-${{ matrix.platform }}-${{ matrix.arch }}.zip picslim.app
+          echo "ARTIFACT_NAME=picslim-${{ matrix.platform }}-${{ matrix.arch }}.zip" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -140,9 +143,9 @@ jobs:
 
             | Platform | Architecture | Download |
             |----------|--------------|----------|
-            | Windows | x64 (amd64) | `desktop-imagecompressor-windows-amd64.zip` |
-            | Windows | ARM64 | `desktop-imagecompressor-windows-arm64.zip` |
-            | Linux | x64 (amd64) | `desktop-imagecompressor-linux-amd64.tar.gz` |
-            | Linux | ARM64 | `desktop-imagecompressor-linux-arm64.tar.gz` |
-            | macOS | Intel (amd64) | `desktop-imagecompressor-darwin-amd64.zip` |
-            | macOS | Apple Silicon (arm64) | `desktop-imagecompressor-darwin-arm64.zip` |
+            | Windows | x64 (amd64) | `picslim-windows-amd64.zip` |
+            | Windows | ARM64 | `picslim-windows-arm64.zip` |
+            | Linux | x64 (amd64) | `picslim-linux-amd64.tar.gz` |
+            | Linux | ARM64 | `picslim-linux-arm64.tar.gz` |
+            | macOS | Intel (amd64) | `picslim-darwin-amd64.zip` |
+            | macOS | Apple Silicon (arm64) | `picslim-darwin-arm64.zip` |

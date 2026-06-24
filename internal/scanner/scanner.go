@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yezihack/PicSlim/internal/dto"
+	"github.com/yezihack/picslim/internal/dto"
 )
 
 // SupportedFormats 支持的图片格式

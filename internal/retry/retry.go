@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/yezihack/PicSlim/internal/dto"
+	"github.com/yezihack/picslim/internal/dto"
 
 	"go.uber.org/zap"
 )

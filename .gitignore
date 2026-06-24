@@ -95,3 +95,7 @@ debug
 .npmrc
 .pnpm-debug.log
 .cursor
+
+PRDs/
+demo/
+*.exe

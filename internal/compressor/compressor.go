@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yezihack/PicSlim/internal/dto"
+	"github.com/yezihack/picslim/internal/dto"
 
 	"github.com/disintegration/imaging"
 	"go.uber.org/zap"

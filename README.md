@@ -1,4 +1,4 @@
-# 智能图片压缩器 (Desktop Image Compressor)
+# 智能图片压缩器 (PicSlim)
 
 一款基于 Wails 构建的跨平台桌面图片压缩工具，支持 Windows、Linux 和 macOS，兼容 AMD64 和 ARM64 架构。
 
@@ -44,16 +44,16 @@ sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev lib
 
 ## 下载安装
 
-从 [Releases](https://github.com/yezihack/PicSlim/releases) 页面下载对应平台的安装包：
+从 [Releases](https://github.com/yezihack/picslim/releases) 页面下载对应平台的安装包：
 
 | 平台 | 架构 | 下载文件 |
 |------|------|----------|
-| Windows | x64 | `desktop-imagecompressor-windows-amd64.zip` |
-| Windows | ARM64 | `desktop-imagecompressor-windows-arm64.zip` |
-| Linux | x64 | `desktop-imagecompressor-linux-amd64.tar.gz` |
-| Linux | ARM64 | `desktop-imagecompressor-linux-arm64.tar.gz` |
-| macOS | Intel | `desktop-imagecompressor-darwin-amd64.zip` |
-| macOS | Apple Silicon | `desktop-imagecompressor-darwin-arm64.zip` |
+| Windows | x64 | `picslim-windows-amd64.zip` |
+| Windows | ARM64 | `picslim-windows-arm64.zip` |
+| Linux | x64 | `picslim-linux-amd64.tar.gz` |
+| Linux | ARM64 | `picslim-linux-arm64.tar.gz` |
+| macOS | Intel | `picslim-darwin-amd64.zip` |
+| macOS | Apple Silicon | `picslim-darwin-arm64.zip` |
 
 ## 开发
 
@@ -74,8 +74,8 @@ go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
 ```bash
 # 克隆项目
-git clone https://github.com/yezihack/PicSlim.git
-cd desktop-imagecompressor
+git clone https://github.com/yezihack/picslim.git
+cd picslim
 
 # 安装前端依赖
 cd frontend
@@ -103,7 +103,7 @@ wails build -platform darwin/arm64
 ## 项目结构
 
 ```
-desktop-imagecompressor/
+picslim/
 ├── frontend/                 # Vue3 前端
 │   ├── src/
 │   │   ├── components/       # Vue 组件

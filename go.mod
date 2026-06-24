@@ -1,4 +1,4 @@
-module github.com/yezihack/PicSlim
+module github.com/yezihack/picslim
 
 go 1.22.0
 

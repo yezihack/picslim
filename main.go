@@ -5,11 +5,11 @@ import (
 	"embed"
 	"log"
 
-	"github.com/yezihack/PicSlim/internal/httpapi"
-	"github.com/yezihack/PicSlim/internal/logx"
-	"github.com/yezihack/PicSlim/internal/config"
+	"github.com/yezihack/picslim/internal/config"
+	"github.com/yezihack/picslim/internal/httpapi"
+	"github.com/yezihack/picslim/internal/logx"
 
-	"github.com/yezihack/PicSlim/internal/app"
+	"github.com/yezihack/picslim/internal/app"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"

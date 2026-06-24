@@ -15,12 +15,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/yezihack/PicSlim/internal/dto"
-	"github.com/yezihack/PicSlim/internal/events"
-	"github.com/yezihack/PicSlim/internal/preview"
-	"github.com/yezihack/PicSlim/internal/report"
-	"github.com/yezihack/PicSlim/internal/scanner"
-	"github.com/yezihack/PicSlim/internal/task"
+	"github.com/yezihack/picslim/internal/dto"
+	"github.com/yezihack/picslim/internal/events"
+	"github.com/yezihack/picslim/internal/preview"
+	"github.com/yezihack/picslim/internal/report"
+	"github.com/yezihack/picslim/internal/scanner"
+	"github.com/yezihack/picslim/internal/task"
 
 	"github.com/disintegration/imaging"
 	"github.com/wailsapp/wails/v2/pkg/runtime"

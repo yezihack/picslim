@@ -10,10 +10,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/yezihack/PicSlim/internal/compressor"
-	"github.com/yezihack/PicSlim/internal/dto"
-	"github.com/yezihack/PicSlim/internal/events"
-	"github.com/yezihack/PicSlim/internal/scanner"
+	"github.com/yezihack/picslim/internal/compressor"
+	"github.com/yezihack/picslim/internal/dto"
+	"github.com/yezihack/picslim/internal/events"
+	"github.com/yezihack/picslim/internal/scanner"
 
 	"github.com/panjf2000/ants/v2"
 	"go.uber.org/zap"
