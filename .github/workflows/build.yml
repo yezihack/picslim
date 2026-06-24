@@ -1,0 +1,148 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Windows
+          - os: windows-latest
+            arch: amd64
+            platform: windows
+          - os: windows-latest
+            arch: arm64
+            platform: windows
+          # Linux
+          - os: ubuntu-latest
+            arch: amd64
+            platform: linux
+          - os: ubuntu-latest
+            arch: arm64
+            platform: linux
+          # macOS
+          - os: macos-latest
+            arch: amd64
+            platform: darwin
+          - os: macos-latest
+            arch: arm64
+            platform: darwin
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
+      - name: Linux dependencies
+        if: matrix.platform == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev libnspr4-dev libnss3-dev libasound2-dev
+
+      - name: Setup ARM64 cross-compilation (Linux)
+        if: matrix.platform == 'linux' && matrix.arch == 'arm64'
+        run: |
+          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+          echo "CC=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
+          echo "CXX=aarch64-linux-gnu-g++" >> $GITHUB_ENV
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          pnpm install
+          pnpm run build
+
+      - name: Build application
+        run: |
+          wails build -platform ${{ matrix.platform }}/${{ matrix.arch }} -clean
+
+      - name: Package artifacts (Windows)
+        if: matrix.platform == 'windows'
+        run: |
+          cd build/bin
+          $filename = "desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.zip"
+          Compress-Archive -Path desktop-imagecompressor.exe -DestinationPath $filename
+          echo "ARTIFACT_NAME=$filename" >> $env:GITHUB_ENV
+
+      - name: Package artifacts (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          cd build/bin
+          tar -czvf desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz desktop-imagecompressor
+          echo "ARTIFACT_NAME=desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
+
+      - name: Package artifacts (macOS)
+        if: matrix.platform == 'darwin'
+        run: |
+          cd build/bin
+          zip -r desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.zip desktop-imagecompressor.app
+          echo "ARTIFACT_NAME=desktop-imagecompressor-${{ matrix.platform }}-${{ matrix.arch }}.zip" >> $GITHUB_ENV
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}-${{ matrix.arch }}
+          path: build/bin/${{ env.ARTIFACT_NAME }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: false
+
+      - name: Get version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            artifacts/**/*.zip
+            artifacts/**/*.tar.gz
+          body: |
+            ## Downloads
+
+            | Platform | Architecture | Download |
+            |----------|--------------|----------|
+            | Windows | x64 (amd64) | `desktop-imagecompressor-windows-amd64.zip` |
+            | Windows | ARM64 | `desktop-imagecompressor-windows-arm64.zip` |
+            | Linux | x64 (amd64) | `desktop-imagecompressor-linux-amd64.tar.gz` |
+            | Linux | ARM64 | `desktop-imagecompressor-linux-arm64.tar.gz` |
+            | macOS | Intel (amd64) | `desktop-imagecompressor-darwin-amd64.zip` |
+            | macOS | Apple Silicon (arm64) | `desktop-imagecompressor-darwin-arm64.zip` |

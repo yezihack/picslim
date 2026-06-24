@@ -1,0 +1,97 @@
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+go.work.sum
+
+# Go build artifacts
+bin/
+*.bin
+
+# Wails build output
+build/bin/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.pnpm-store/
+
+# Dependencies
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.env
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Test coverage
+*.coverprofile
+coverage.out
+coverage.html
+
+# Profiling
+*.prof
+*.pprof
+
+# Debug
+debug
+
+# Cache
+.cache/
+*.cache
+
+# Package files
+*.zip
+*.tar.gz
+*.tar
+*.gz
+*.rar
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Editor
+*.sublime-workspace
+*.sublime-project
+
+# Other
+.npmrc
+.pnpm-debug.log
+.cursor

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="‹)M:þ">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#75a6ff"/>
+      <stop offset="100%" stop-color="#2d4fb8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g1)"/>
+  <circle cx="200" cy="180" r="80" fill="#ffd26a"/>
+  <polygon points="0,700 300,360 560,700" fill="#6da06f"/>
+  <polygon points="400,700 760,260 1200,700" fill="#4f7f57"/>
+  <rect x="90" y="90" width="320" height="90" rx="12" fill="#ffffff" fill-opacity="0.22"/>
+  <text x="110" y="147" font-size="42" font-family="Arial" fill="#ffffff">Before 3.2MB</text>
+</svg>
